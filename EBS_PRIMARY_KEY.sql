@@ -1,0 +1,42 @@
+select t.table_name, pk.primary_key_name,pk.primary_key_type, C.column_name, c.description, c.width, c.precision 
+from FND_PRIMARY_KEYS PK
+,    fnd_tables T
+,    FND_PRIMARY_KEY_COLUMNS pkc
+,    fnd_columns c
+where T.table_id = pk.table_id
+and t.table_name IN  ( 
+ 'HZ_CUST_ACCOUNTS'
+,'HZ_PARTIES'
+,'HZ_CUST_SITE_USES_ALL'
+,'HZ_PARTY_SITES'
+,'HZ_LOCATIONS'
+,'HZ_CUST_ACCOUNT_ROLES'
+,'HZ_ORG_CONTACTS'
+,'HZ_RELATIONSHIPS'
+,'AP_SUPPLIERS'
+,'AP_SUPPLIER_SITES_ALL'
+,'AP_SUPPLIER_CONTACTS'
+,'HZ_CUSTOMER_PROFILES'
+,'HZ_CUST_PROFILE_CLASSES'
+,'HZ_CUST_PROFILE_AMTS'
+,'HZ_CUST_ACCT_SITES_ALL'
+,'PER_ORGANIZATION_STRUCTURES'
+,'PER_ORGANIZATION_STRUCTURES'
+,'HR_ALL_ORGANIZATION_UNITS'
+,'HR_ORGANIZATION_INFORMATION'
+,'HR_ORG_INFO_TYPES_BY_CLASS'
+,'PER_ORG_STRUCTURE_VERSIONS'
+,'PER_ORG_STRUCTURE_ELEMENTS'
+,'PER_ALL_PEOPLE_F'
+,'PER_ALL_ASSIGNMENTS_F'
+,'PO_AGENTS'
+,'JTF_RS_RESOURCE_EXTNS'
+,'JTF_RS_SALESREPS'
+,'HR_LOCATIONS_ALL'
+
+)
+and pkc.primary_key_id = pk.primary_key_id
+and  pkc.column_id = c.column_id
+and COALESCE(pk.enabled_flag,'Y') = 'Y'
+order by 1,2, PKC.PRIMARY_KEY_SEQUENCE
+/
